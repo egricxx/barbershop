@@ -1,0 +1,62 @@
+h2 {
+    margin-left: 200px;
+    color: aliceblue;
+}
+
+h3 {
+    margin-left: 50px;
+    color: aliceblue;
+}
+
+body {
+    background: url(../images/fon4.jpg);
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+}
+
+.header .logo img {
+    height: 17%;
+    width: 10%;
+    margin-left: 20px;
+    margin-top: 10px;
+    border-radius: 40px;
+}
+
+.header h1 {
+    color: aliceblue;
+    margin: 0;
+}
+
+
+.header .logo,
+.header .menu2 {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.img_left {
+    height: 300px;
+    width: 300px;
+    margin-right: 5px;
+}
+
+p {
+    color: aliceblue;
+}
+
+.bold {
+    font-weight: bold;
+    color: lavender;
+}
+
+.services {
+    color: aliceblue;
+    margin-left: 20px;
+}
+
+.img_right {
+    height: 300px;
+    width: 250px;
+    margin-right: 5px;
+}

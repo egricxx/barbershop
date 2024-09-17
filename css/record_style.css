@@ -1,0 +1,103 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.field {
+    margin-bottom: 20px;
+    color: navajowhite;
+}
+
+button {
+    background-color: transparent;
+    color: navajowhite;
+    border-bottom: 1px solid navajowhite;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+body {
+    background: url(../images/fon2.jpg);
+}
+
+.logo {
+    backdrop-filter: blur(3px);
+}
+
+.header .logo img {
+    height: 17%;
+    width: 7%;
+    margin-left: 20px;
+    margin-top: 10px;
+    border-radius: 40px;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 60px 100px;
+    background: rgba(26, 25, 25, 0.3);
+    backdrop-filter: blur(3px);
+    color: navajowhite;
+}
+
+
+input {
+    margin-bottom: 25px;
+    background: transparent;
+    height: 25px;
+    border: none;
+    border-bottom: 1px solid white;
+    padding-left: 20px;
+    color: navajowhite;
+}
+
+.name {
+    width: 100%;
+
+}
+
+.mail {
+    width: 100%;
+}
+
+.phone {
+    width: 100%;
+}
+
+*::placeholder {
+    color: navajowhite;
+}
+
+.text_area {
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    font-size: 24px;
+}
+
+textarea {
+    background: transparent;
+    color: white;
+    border-radius: 5px;
+}
+
+.send {
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+
+
+
+
