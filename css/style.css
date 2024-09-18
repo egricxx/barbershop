@@ -195,16 +195,31 @@ li {
     background-color: #0e1b22;
     color: white;
     padding: 10px;
-
+    text-align: center;
 }
 
 .footer .contacts h3 span {
     font-weight: bold;
 }
 
+
+.footer .contacts,
+.footer .time-place {
+    display: inline-block;
+}
+
+.footer .contacts {
+    margin-right: 7%;
+}
+
+.footer .time-place {
+    margin-left: 7%;
+}
+
 h3 {
     margin-bottom: 20px;
 }
+
 
 
 
@@ -242,3 +257,4 @@ h3 {
     margin-left: 6px;
     vertical-align: top;
 }
+

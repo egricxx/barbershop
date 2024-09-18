@@ -1,19 +1,21 @@
 h2 {
     margin-left: 200px;
-    color: aliceblue;
 }
 
-h3 {
-    margin-left: 50px;
-    color: aliceblue;
-}
+
 
 body {
-    background: url(../images/fon4.jpg);
-    background-position: top;
-    background-repeat: no-repeat;
-    background-attachment:fixed;
+    background-color: antiquewhite;
+    color: black;
 }
+
+.header {
+    background-color: #0e1b22;
+    color: #fff;
+    width: 100%;
+    padding: 0 0;
+}
+
 
 .header .logo img {
     height: 17%;
@@ -24,7 +26,6 @@ body {
 }
 
 .header h1 {
-    color: aliceblue;
     margin: 0;
 }
 
@@ -41,17 +42,24 @@ body {
     margin-right: 5px;
 }
 
-p {
-    color: aliceblue;
-}
 
 .bold {
     font-weight: bold;
-    color: lavender;
+
 }
 
+.main {
+    margin: 10px;
+}
+
+.main h3 {
+    margin-left: 30px;
+}
+
+
+
 .services {
-    color: aliceblue;
+
     margin-left: 20px;
 }
 
@@ -60,3 +68,31 @@ p {
     width: 250px;
     margin-right: 5px;
 }
+
+.footer {
+    background-color: #0e1b22;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.footer .contacts h3 span {
+    font-weight: bold;
+}
+
+
+.footer .contacts,
+.footer .time-place {
+    display: inline-block;
+}
+
+.footer .contacts {
+    margin-right: 7%;
+    text-align: center;
+}
+
+.footer .time-place {
+    margin-left: 7%;
+    text-align: center;
+}
+
