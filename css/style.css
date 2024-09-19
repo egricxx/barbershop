@@ -23,14 +23,12 @@ body {
 .header {
     background-color: #0e1b22;
     color: #fff;
-    padding: 20px 0;
+    padding: 10px;
 
     @media (max-width: 1130px) {
         display: flex;
         height: 100px;
     }
-
-
 }
 
 header h1 {
@@ -48,6 +46,7 @@ header h1 {
     margin-left: 20px;
     margin-top: 10px;
     border-radius: 40px;
+
 
     @media (max-width: 1130px) {
         height: 100%;
