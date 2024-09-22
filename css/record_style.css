@@ -11,17 +11,17 @@
 }
 
 button {
-    background-color: transparent;
-    color: navajowhite;
-    border-bottom: 1px solid navajowhite;
+    color: black;
+    border-bottom: 1px solid black;
     border-radius: 5px;
     background: rgba(0, 0, 0, 0.3);
     padding: 10px 15px;
     cursor: pointer;
+    margin: 20px;
 }
 
 body {
-    background: url(../images/fon2.jpg);
+    background: url(../images/fon10.jpg);
 }
 
 .logo {
@@ -44,7 +44,7 @@ body {
     padding: 80px 60px 100px;
     background: rgba(26, 25, 25, 0.3);
     backdrop-filter: blur(3px);
-    color: navajowhite;
+    color: black;
 }
 
 
@@ -55,7 +55,7 @@ input {
     border: none;
     border-bottom: 1px solid white;
     padding-left: 20px;
-    color: navajowhite;
+    color: black;
 }
 
 .name {
@@ -72,12 +72,17 @@ input {
 }
 
 *::placeholder {
-    color: navajowhite;
+    color: black;
 }
 
 .text_area {
     display: flex;
     flex-direction: column;
+
+}
+
+.text_area p {
+    padding: 5px;
 }
 
 .message {
@@ -88,13 +93,24 @@ textarea {
     background: transparent;
     color: white;
     border-radius: 5px;
+    padding: 5px;
 }
+
+
 
 .send {
     margin-top: 20px;
     text-align: center;
     text-decoration: none;
+    display: flex;
+    justify-content: space-between;
 }
+
+.send a {
+    color: black;
+    text-decoration: none;
+}
+
 
 
 
