@@ -79,7 +79,7 @@ nav ul li {
 nav ul li a {
     color: white;
     text-decoration: none;
-    font-size: 22px;
+    font-size: 25px;
 }
 nav ul li a:hover {
     text-decoration: underline;
@@ -141,19 +141,20 @@ nav ul li a:hover {
     font-family: Arial;
     margin: 0 auto;
     margin-left: 50px;
+    padding-top: 20px;
 }
 
 .menu {
     margin-left: 250px;
 }
 
-.main {
+.main h2, p, ul{
     vertical-align: top;
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment:fixed;
     font-family: Arial;
-    padding: 15px;
+    padding: 10px;
     background: url("images/fon5.jpg");
 }
 
@@ -182,18 +183,26 @@ li {
 
 
 .left {
+
     text-align: center;
     padding-top: 20px;
+    padding-bottom: 25px;
+
 }
 
+
+
 .fon {
-    background: url("../images/fon5.jpg");
+    padding: 0;
+    margin: 0;
+    background: url("../images/fon_pr.jpg");
     width: 100%;
 }
 
 .price-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    flex-wrap: wrap;
     gap: 10px;
     width: 250%;
     max-width: 1400px;
@@ -245,6 +254,14 @@ li {
     display: inline-block;
 }
 
+.time-place p{
+    font-size: 16px;
+}
+
+.contacts p {
+    font-size: 16px;
+}
+
 .footer .contacts {
     margin-right: 7%;
 }
@@ -267,8 +284,9 @@ h3 {
 
 .fon {
     background-color: white;
-    color: black;
+    color: palegreen;
 }
+
 
 .list-1 {
     list-style-type: none;
