@@ -10,6 +10,11 @@
     color: navajowhite;
 }
 
+.back {
+    width: 72px;
+    height: 38px;
+}
+
 button {
     color: black;
     border-bottom: 1px solid black;

@@ -55,14 +55,14 @@ body {
 
 .img_left {
     height: 300px;
-    width: 300px;
-    margin-right: 5px;
+    width: 250px;
+    margin: 20px;
 }
 
 
 .bold {
     font-weight: bold;
-
+    font-size: 25px;
 }
 
 .main {
@@ -71,8 +71,26 @@ body {
 }
 
 .main h3 {
-    margin-left: 30px;
+    margin-left: 200px;
     padding: 20px;
+
+}
+
+
+.line {
+
+    border-top: 2px solid #9a9999;
+    padding-top: 20px;
+    margin-right: 30px;
+    margin-top: 20px;
+}
+
+
+.line2 {
+    border-top: 2px solid #333333;
+    padding-top: 20px;
+    margin-right: 30px;
+    margin-top: 50px;
 }
 
 
@@ -85,7 +103,6 @@ body {
 .img_right {
     height: 300px;
     width: 250px;
-    margin-right: 5px;
     margin: 20px;
 }
 
