@@ -12,13 +12,13 @@
 
     <div class="container">
 
-        <form method="POST">
+        <form onsubmit="return false">
 
             <div class="field">
-                <input type="text" class="name" placeholder="Имя" /><br/>
-                <input type="datetime-local" class="date" placeholder="Дата и время" /><br/>
-                <input type="tel" class="phone" placeholder="Телефон" /><br/>
-                <input type="text" class="mail" placeholder="E-mail">
+                <input id="name" type="text" class="name" placeholder="Имя" /><br/>
+                <input id="date" type="datetime-local" class="date" placeholder="Дата и время" /><br/>
+                <input id="phone" type="tel" class="phone" placeholder="Телефон" /><br/>
+                <input id="mail" type="text" class="mail" placeholder="E-mail">
             </div>
             <div class="text_area">
                 <p class="message">Напишите ваш комментарий</p>
@@ -33,14 +33,33 @@
                     </button>
                 </div>
                 <div>
-                    <button>
-                        <a href="../index.html">Записаться</a>
+                    <button onclick="collectData()" >
+                        Записаться
                     </button>
                 </div>
             </div>
 
         </form>
     </div>
+
+    <script>
+
+        function collectData() {
+            const name = document.getElementById("name").value
+            const date = document.getElementById("date").value
+            const phone = document.getElementById("phone").value
+            const mail = document.getElementById("mail").value
+
+            localStorage.setItem("name", name)
+            localStorage.setItem("date", date)
+            localStorage.setItem("phone", phone)
+            localStorage.setItem("mail", mail)
+
+            document.location.href = "../index.html"
+        }
+
+
+    </script>
 
 
 

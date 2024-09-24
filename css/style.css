@@ -87,12 +87,14 @@ nav ul li a:hover {
 
 .burger {
     display: none;
-    position: relative;
+    position: fixed;
     z-index: 10;
     align-items: center;
     justify-content: flex-end;
     width: 30px;
     height: 18px;
+    top: 30px;
+    right: 30px;
 
 }
 
@@ -124,6 +126,7 @@ nav ul li a:hover {
 .burger.active span {
     transform: scale(0);
 }
+
 
 .burger.active::before {
     top: 50%;
@@ -159,14 +162,17 @@ nav ul li a:hover {
 }
 
 .line {
-    border-left: 3px solid #444;
-    margin-bottom: 10px;
+
+    border-top: 2px solid #9a9999;
+    padding-top: 30px;
+    margin-right: 30px;
 }
 
 
 section h2 {
     text-align: center;
     margin-bottom: 22px;
+
 }
 
 .tab {
@@ -187,7 +193,7 @@ li {
     text-align: center;
     padding-top: 20px;
     padding-bottom: 25px;
-
+    margin-left: 50px;
 }
 
 
@@ -201,13 +207,14 @@ li {
 
 .price-list {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+    justify-content: space-around;
     gap: 10px;
     width: 250%;
-    max-width: 1400px;
-    max-height: 300px;
+    max-width: 90%;
+    max-height: 100%;
     padding: 20px;
+    margin-left: 40px;
 
 }
 .price-item {
