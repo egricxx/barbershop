@@ -197,53 +197,57 @@ li {
 }
 
 
-
 .fon {
     padding: 0;
     margin: 0;
-    background: url("../images/fon_pr.jpg");
+    background: url("../images/fon_pr.jpg") no-repeat center center;
+    background-size: cover;
     width: 100%;
 }
 
 .price-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 10px;
-    width: 250%;
-    max-width: 90%;
-    max-height: 100%;
+    width: auto;
+    max-width: 98%;
     padding: 20px;
-    margin-left: 40px;
+    margin-left: 0;
+    margin-right: 0;
 
 }
+
 .price-item {
     flex: 1 1 calc(50% - 40px);
     margin: 10px;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.8);
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
+    background-size: cover;
 }
+
 .price-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 
 .price-item h3 {
     margin: 0 0 10px;
     font-size: 1.5em;
     color: #333;
 }
+
 .price-item p {
     margin: 0;
     font-size: 1.2em;
     color: #666;
 }
+
 
 
 .footer {

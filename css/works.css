@@ -6,10 +6,6 @@ body {
 }
 
 
-
-
-
-
 .header {
     background-color: #0e1b22;
     color: #fff;
@@ -19,7 +15,6 @@ body {
     grid-template-columns: 1fr 6fr;
 
 }
-
 
 
 .menu {

@@ -1,0 +1,21 @@
+@media (max-width: 425px) {
+    .header-text {
+        font-size: 5vw;
+    }
+
+    .barber {
+        padding: 1rem;
+        width: 90%;
+    }
+
+    .barber h2 {
+        font-size: 4.5vw;
+    }
+
+    .footer {
+        font-size: 3.5vw;
+        padding: 1rem;
+        height: auto;
+        vertical-align: bottom;
+    }
+}
