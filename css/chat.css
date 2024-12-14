@@ -1,0 +1,13 @@
+#chat-window {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 250px;
+    height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+}

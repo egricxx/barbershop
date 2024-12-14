@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Чат администратора</title>
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+<h1>Админский чат</h1>
+<div id="admin-chat">
+  <div id="admin-messages"></div>
+  <div style="display: flex;">
+    <input type="text" id="inputMessage" placeholder="Введите сообщение..." />
+    <button type="button" id="sendMessage">Отправить</button>
+  </div>
+</div>
+
+<script src="https://cdn.socket.io/3.1.1/socket.io.min.js"></script>
+<script>
+  const socket = io("http://localhost:3000");
+
+  socket.on("receiveMessage", function (event) {
+    console.log(event);
+    const message = document.createElement("p");
+
+    if (!event.text.admin) {
+      message.textContent = "Пользователь: " + event.text.text;
+      message.classList.add("user-message");
+    } else {
+      return;
+    }
+
+    document.getElementById("admin-messages").appendChild(message);
+    document.getElementById("admin-messages").scrollTop = document.getElementById("admin-messages").scrollHeight; // Прокрутка вниз
+  });
+
+  document.getElementById("sendMessage").addEventListener("click", function () {
+    const inputMessage = document.getElementById("inputMessage");
+
+    if (inputMessage.value.trim() !== "") {
+      socket.emit("send", { text: inputMessage.value, admin: true });
+      let messageText = inputMessage.value;
+      inputMessage.value = "";
+      const message = document.createElement("p");
+      message.textContent = "Вы: " + messageText;
+      message.classList.add("admin-message");
+      document.getElementById("admin-messages").appendChild(message);
+      document.getElementById("admin-messages").scrollTop = document.getElementById("admin-messages").scrollHeight; // Прокрутка вниз
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,176 +1,273 @@
 <! DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    
+  <head>
+    <meta charset="UTF-8" />
     <title>Барбершоп TitaN</title>
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="media/media.css">
-    <link rel="icon" href="images/free.icon.ico">
-
-
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="media/media.css" />
+    <link rel="stylesheet" href="css/chat.css" />
+    <link rel="icon" href="images/free.icon.ico" />
+  </head>
+  <body>
     <div class="site">
+      <div class="fixed">
+        <div class="chat">
+          <div id="chat-button">
+            <img src="../barbershop/images/chat.png" alt="Обратная связь" />
+          </div>
+          <div id="chat-window" style="display: none;">
+            <div id="messages" style="background-color: white; height: calc(100% - 60px); overflow-y: auto; padding: 5px; border-radius: 4px; margin-bottom: 10px;"></div>
+            <input type="text" id="inputMessage" style="width: calc(100% - 80px); padding: 10px; border-radius: 4px; border: 1px solid #ccc; margin-right: 5px;" placeholder="Введите сообщение..." />
+            <button type="button" id="sendMessage" style="padding: 10px; border-radius: 4px; border: none; background-color: #007bff; color: white; cursor: pointer;">Отправить</button>
+          </div>
 
-        <div class="fixed">
+          <script src="https://cdn.socket.io/3.1.1/socket.io.min.js"></script>
+          <script>
+            const chatButton = document.getElementById("chat-button");
+            const chatWindow = document.getElementById("chat-window");
+            const messages = document.getElementById("messages");
+            const inputMessage = document.getElementById("inputMessage");
+            const sendMessageButton = document.getElementById("sendMessage");
 
-            <div class="chat">
-                <a href="#">
-                    <img src="../barbershop/images/chat.png" alt="Обратная связь">
-                </a>
-            </div>
+            const socket = io("http://localhost:3000"); // Инициализируем сокет только один раз
+            let isChatOpened = false; // Флаг для отслеживания первого открытия чата
 
-            <div class="record">
-                <a href="../barbershop/pages/record.html">
-                    <img src="images/record.png" alt="Запись на стрижку">
-                </a>
-            </div>
+            chatButton.addEventListener("click", function () {
+              chatWindow.style.display =
+                      chatWindow.style.display === "none" ? "block" : "none";
 
+              if (!isChatOpened) {
+                // Добавляем приветственное сообщение только при первом открытии
+                const welcomeMessage = document.createElement("p");
+                welcomeMessage.textContent = "Добро пожаловать в чат обратной связи! Чем я могу вам помочь?";
+                welcomeMessage.style.margin = "5px 0";
+                welcomeMessage.style.padding = "8px";
+                welcomeMessage.style.borderRadius = "4px";
+                welcomeMessage.style.backgroundColor = "#ffe0b2"; // Цвет фона для сообщения администратора
+                welcomeMessage.style.fontSize = "14px";
+                messages.appendChild(welcomeMessage);
+                messages.scrollTop = messages.scrollHeight; // Прокрутка вниз
+
+                isChatOpened = true; // Устанавливаем флаг
+              }
+            });
+
+            sendMessageButton.addEventListener("click", function () {
+              if (inputMessage.value.trim() !== "") { // Проверка на пустое сообщение
+                socket.emit("send", { text: inputMessage.value, admin: false });
+                let messageText = inputMessage.value;
+                inputMessage.value = "";
+                const message = document.createElement("p");
+                message.textContent = "Вы: " + messageText;
+                message.style.margin = "5px 0";
+                message.style.padding = "8px";
+                message.style.borderRadius = "4px";
+                message.style.backgroundColor = "#e1f5fe"; // Цвет фона для сообщений пользователя
+                message.style.fontSize = "14px";
+                messages.appendChild(message);
+                messages.scrollTop = messages.scrollHeight; // Прокрутка вниз
+              }
+            });
+
+            socket.on("receiveMessage", function (event) {
+              if (event.text.admin) {
+                const message = document.createElement("p");
+                message.textContent = "Администратор: " + event.text.text;
+                message.style.margin = "5px 0";
+                message.style.padding = "8px";
+                message.style.borderRadius = "4px";
+                message.style.backgroundColor = "#ffe0b2"; // Цвет фона для сообщений администратора
+                message.style.fontSize = "14px";
+                messages.appendChild(message);
+                messages.scrollTop = messages.scrollHeight; // Прокрутка вниз
+              }
+            });
+          </script>
         </div>
 
 
-        <header class="header">
 
-            <div class="logo">
-                <a href="index.html"><img src="../barbershop/images/titan.jpg" alt="Titan Logo"></a>
+
+        <div class="record">
+          <a href="../barbershop/pages/record.html">
+            <img src="images/record.png" alt="Запись на стрижку"/>
+          </a>
+        </div>
+      </div>
+
+      <header class="header">
+        <div class="logo">
+          <a href="index.html">
+            <img src="../barbershop/images/titan.jpg" alt="Titan Logo"/>
+          </a>
+        </div>
+
+        <nav class="nav">
+          <ul>
+            <li><a href="#home">Главная</a></li>
+            <li><a href="../barbershop/pages/specialist.html">Барберы</a></li>
+            <li><a href="#price">Price-list</a></li>
+            <li><a href="../barbershop/pages/works.html">Наши работы</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+          </ul>
+        </nav>
+
+        <div class="burger">
+          <span></span>
+        </div>
+      </header>
+
+      <main class="main">
+        <section id="home">
+          <div class="container">
+            <h2>Добро пожаловать в барбершоп TitaN</h2>
+            <p class="centre">Лучшие стрижки и уход за бородой в городе!</p>
+            <br />
+            <p class="line">
+              &nbsp;&nbsp;&nbsp;&nbsp;Наш барбершоп предлагает широкий спектр
+              услуг, включая стрижки, бритье, уход за бородой и массаж головы.
+              Мы используем только лучшие инструменты и косметику, чтобы
+              обеспечить вам наилучший результат.
+            </p>
+            <br />
+            <p>
+              &nbsp;&nbsp;&nbsp;&nbsp;Наши мастера - это профессионалы с
+              многолетним опытом, которые постоянно совершенствуют свои навыки и
+              следят за последними тенденциями в мире мужской моды.
+            </p>
+            <br />
+            <p>
+              &nbsp;&nbsp;&nbsp;&nbsp;Мы стремимся создать уютную и дружелюбную
+              атмосферу, чтобы каждый клиент чувствовал себя комфортно и
+              расслабленно.
+            </p>
+            <br />
+            <p class="centre bold line">
+              Почему вы должны прийти именно к нам?
+            </p>
+            <br />
+            <ul>
+              <li>Высококвалифицированные мастера с многолетним опытом.</li>
+              <li>
+                Использование только качественных инструментов и косметики.
+              </li>
+              <li>Уютная и дружелюбная атмосфера.</li>
+              <li>Индивидуальный подход к каждому клиенту.</li>
+              <li>Регулярные акции и скидки для постоянных клиентов.</li>
+            </ul>
+            <br />
+            <p class="bold centre line">К нам приходят известные люди!</p>
+            <br />
+            <p>
+              &nbsp;&nbsp;&nbsp;&nbsp;Наш барбершоп посещают многие известные
+              спортсмены, например спортсмены хоккейного клуба "Неман". Они
+              доверяют нам свой стиль и внешний вид, и мы гордимся тем, что
+              можем предложить им услуги высочайшего качества.
+            </p>
+            <br />
+            <p class="bold centre line">Дополнительные услуги:</p>
+            <ul>
+              <li>Консультации по уходу за волосами и бородой.</li>
+              <li>Продажа профессиональной косметики для мужчин.</li>
+              <li>Подарочные сертификаты на услуги барбершопа.</li>
+              <li>
+                Организация мероприятий и мастер-классов по мужскому стилю.
+              </li>
+            </ul>
+            <br />
+          </div>
+        </section>
+
+        <section id="price">
+          <p class="bold left line">Price-лист цен</p>
+
+          <div class="fon">
+            <div class="price-list">
+              <div class="price-item">
+                <h3>Стрижка</h3>
+                <p>35 BYN</p>
+              </div>
+              <div class="price-item">
+                <h3>Уход за бородой</h3>
+                <p>20 BYN</p>
+              </div>
+              <div class="price-item">
+                <h3>Бритье</h3>
+                <p>15 BYN</p>
+              </div>
+              <div class="price-item">
+                <h3>Массаж головы</h3>
+                <p>12 BYN</p>
+              </div>
+              <div class="price-item">
+                <h3>Комплексная услуга (стрижка + борода)</h3>
+                <p>45 BYN</p>
+              </div>
+              <div class="price-item">
+                <h3>Детская стрижка</h3>
+                <p>15 BYN</p>
+              </div>
+              <div class="price-item">
+                <h3>Коррекция усов</h3>
+                <p>15 BYN</p>
+              </div>
+              <div class="price-item">
+                <h3>Окрашивание бороды</h3>
+                <p>20 BYN</p>
+              </div>
+              <br />
             </div>
-
-            <nav class="nav">
-                <ul>
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="../barbershop/pages/specialist.html">Барберы</a></li>
-                    <li><a href="#price">Price-list</a></li>
-                    <li><a href="../barbershop/pages/works.html">Наши работы</a></li>
-                    <li><a href="#contacts">Контакты</a></li>
-                </ul>
-            </nav>
-
-            <div class="burger">
-                <span></span>
-            </div>
-
-        </header>
-
-
-
-        <main class="main">
-            <section id="home">
-                <div class="container">
-                    <h2>Добро пожаловать в барбершоп TitaN</h2>
-                    <p class="centre">Лучшие стрижки и уход за бородой в городе!</p><br>
-                    <p class="line">&nbsp;&nbsp;&nbsp;&nbsp;Наш барбершоп предлагает широкий спектр услуг, включая стрижки, бритье, уход за бородой и массаж головы. Мы используем только лучшие инструменты и косметику, чтобы обеспечить вам наилучший результат.</p><br>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Наши мастера - это профессионалы с многолетним опытом, которые постоянно совершенствуют свои навыки и следят за последними тенденциями в мире мужской моды.</p><br>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Мы стремимся создать уютную и дружелюбную атмосферу, чтобы каждый клиент чувствовал себя комфортно и расслабленно.</p><br>
-                    <p class="centre bold line">Почему вы должны прийти именно к нам?</p><br>
-                    <ul>
-                        <li>Высококвалифицированные мастера с многолетним опытом.</li>
-                        <li>Использование только качественных инструментов и косметики.</li>
-                        <li>Уютная и дружелюбная атмосфера.</li>
-                        <li>Индивидуальный подход к каждому клиенту.</li>
-                        <li>Регулярные акции и скидки для постоянных клиентов.</li>
-                    </ul>
-                    <br>
-                    <p class="bold centre line">К нам приходят известные люди!</p><br>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;Наш барбершоп посещают многие известные спортсмены, например спортсмены хоккейного клуба "Неман". Они доверяют нам свой стиль и внешний вид, и мы гордимся тем, что можем предложить им услуги высочайшего качества.</p>
-                    <br>
-                    <p class="bold centre line">Дополнительные услуги:</p>
-                    <ul>
-                        <li>Консультации по уходу за волосами и бородой.</li>
-                        <li>Продажа профессиональной косметики для мужчин.</li>
-                        <li>Подарочные сертификаты на услуги барбершопа.</li>
-                        <li>Организация мероприятий и мастер-классов по мужскому стилю.</li>
-                    </ul>
-                    <br>
-                </div>
-            </section>
-
-            <section id="price">
-            <p class="bold left line">Price-лист цен</p>
-
-                <div class="fon">
-
-                    <div class="price-list">
-
-                        <div class="price-item">
-                            <h3>Стрижка</h3>
-                            <p>35 BYN</p>
-                        </div>
-                        <div class="price-item">
-                            <h3>Уход за бородой</h3>
-                            <p>20 BYN</p>
-                        </div>
-                        <div class="price-item">
-                            <h3>Бритье</h3>
-                            <p>15 BYN</p>
-                        </div>
-                        <div class="price-item">
-                            <h3>Массаж головы</h3>
-                            <p>12 BYN</p>
-                        </div>
-                        <div class="price-item">
-                            <h3>Комплексная услуга (стрижка + борода)</h3>
-                            <p>45 BYN</p>
-                        </div>
-                        <div class="price-item">
-                            <h3>Детская стрижка</h3>
-                            <p>15 BYN</p>
-                        </div>
-                        <div class="price-item">
-                            <h3>Коррекция усов</h3>
-                            <p>15 BYN</p>
-                        </div>
-                        <div class="price-item">
-                            <h3>Окрашивание бороды</h3>
-                            <p>20 BYN</p>
-                        </div><br>
-                    </div>
-
-                </div><br>
-            </section>
-
-            <div>
-                <p class="tab">&nbsp;&nbsp;&nbsp;&nbsp;Барбершоп <span class="bold">“TitaN”</span> - это место, где стиль и комфорт встречаются. Мы гордимся тем, что предлагаем нашим клиентам лучшие услуги по уходу за волосами и бородой. Наши мастера - это профессионалы с многолетним опытом, которые постоянно совершенствуют свои навыки и следят за последними тенденциями в мире мужской моды.</p>
-
-                <p class="tab">&nbsp;&nbsp;&nbsp;&nbsp;Приходите в барбершоп “TitaN” и убедитесь сами, почему нас выбирают лучшие! Мы всегда рады новым клиентам и готовы предложить вам услуги высочайшего качества.</p>
-            </div>
-
-
-        </main>
-
-
+          </div>
+          <br />
+        </section>
 
         <div>
-            <iframe class="pageView" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2361.998611882356!2d23.836302676553906!3d53.70047067239414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dfd725cb6bd79f%3A0x24e7710d7b3ea73b!2z0YPQuy4g0JTRg9Cx0LrQviAyMCwg0JPRgNC-0LTQvdC-LCDQk9GA0L7QtNC90LXQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMIDIzMDAwNQ!5e0!3m2!1sru!2sby!4v1726335010787!5m2!1sru!2sby" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <p class="tab">
+            &nbsp;&nbsp;&nbsp;&nbsp;Барбершоп
+            <span class="bold">“TitaN”</span> - это место, где стиль и комфорт
+            встречаются. Мы гордимся тем, что предлагаем нашим клиентам лучшие
+            услуги по уходу за волосами и бородой. Наши мастера - это
+            профессионалы с многолетним опытом, которые постоянно совершенствуют
+            свои навыки и следят за последними тенденциями в мире мужской моды.
+          </p>
+
+          <p class="tab">
+            &nbsp;&nbsp;&nbsp;&nbsp;Приходите в барбершоп “TitaN” и убедитесь
+            сами, почему нас выбирают лучшие! Мы всегда рады новым клиентам и
+            готовы предложить вам услуги высочайшего качества.
+          </p>
         </div>
+      </main>
 
+      <div>
+        <iframe
+          class="pageView"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2361.998611882356!2d23.836302676553906!3d53.70047067239414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dfd725cb6bd79f%3A0x24e7710d7b3ea73b!2z0YPQuy4g0JTRg9Cx0LrQviAyMCwg0JPRgNC-0LTQvdC-LCDQk9GA0L7QtNC90LXQvdGB0LrQsNGPINC-0LHQu9Cw0YHRgtGMIDIzMDAwNQ!5e0!3m2!1sru!2sby!4v1726335010787!5m2!1sru!2sby"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
 
-        <footer class="footer">
-            <section id="contacts">
-                <div class="contacts">
-                    <h3><span>Контакты</span></h3>
-                    <p>+375 44 591-29-49</p><br>
-                    <p>guzovegor5@gmail.com</p>
-                </div>
+      <footer class="footer">
+        <section id="contacts">
+          <div class="contacts">
+            <h3><span>Контакты</span></h3>
+            <p>+375 44 591-29-49</p>
+            <br />
+            <p>guzovegor5@gmail.com</p>
+          </div>
 
-                <div class="time-place">
-                    <h3>График работы:</h3>
-                    <p>Будние дни: с 10.00 до 22.00</p><br>
-                    <p>Выходные дни: с 10.00 до 20.00</p>
-
-                </div>
-            </section>
-        </footer>
-
+        </section>
+      </footer>
     </div>
 
-
     <script>
-        document.querySelector('.burger').addEventListener('click', function () {
-           this.classList.toggle('active');
-           document.querySelector('nav').classList.toggle('open')
-        })
+      document.querySelector(".burger").addEventListener("click", function () {
+        this.classList.toggle("active");
+        document.querySelector("nav").classList.toggle("open");
+      });
     </script>
-</body>
+  </body>
 </html>

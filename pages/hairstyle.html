@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Beard and Hair Overlay</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        video, canvas {
+            position: absolute;
+        }
+        video {
+            z-index: 1;
+        }
+        canvas {
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+<h1>AI Beard and Hair Overlay</h1>
+<video id="video" autoplay muted playsinline></video>
+<canvas id="overlay"></canvas>
+
+<!-- Подключение TensorFlow.js и face-api.js -->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('overlay');
+    const ctx = canvas.getContext('2d');
+    const hairImage = new Image();
+    hairImage.src = 'hair.png'; // Замените на путь к изображению прически
+    const beardImage = new Image();
+    beardImage.src = 'beard.png'; // Замените на путь к изображению бороды
+
+    async function startVideo() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: {} });
+            video.srcObject = stream;
+            video.addEventListener('play', () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                detectFace();
+            });
+        } catch (err) {
+            console.error('Error accessing camera:', err);
+        }
+    }
+
+    async function loadModels() {
+        const MODEL_URL = 'https://justadudewhohacks.github.io/face-api.js/models';
+        await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+        await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+    }
+
+    async function detectFace() {
+        const displaySize = { width: video.videoWidth, height: video.videoHeight };
+        faceapi.matchDimensions(canvas, displaySize);
+
+        setInterval(async () => {
+            const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks();
+            const resizedDetections = faceapi.resizeResults(detections, displaySize);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            resizedDetections.forEach(detection => {
+                const landmarks = detection.landmarks;
+
+                // Наложение прически
+                const topHead = landmarks.getNose()[0];
+                const jawOutline = landmarks.getJawOutline();
+                const hairWidth = jawOutline[16].x - jawOutline[0].x;
+                const hairHeight = hairWidth * 0.6;
+
+                ctx.drawImage(
+                    hairImage,
+                    topHead.x - hairWidth / 2,
+                    topHead.y - hairHeight * 1.8,
+                    hairWidth,
+                    hairHeight
+                );
+
+                // Наложение бороды
+                const bottomJaw = landmarks.getJawOutline()[9];
+                const beardWidth = hairWidth * 0.8;
+                const beardHeight = beardWidth * 0.6;
+
+                ctx.drawImage(
+                    beardImage,
+                    bottomJaw.x - beardWidth / 2,
+                    bottomJaw.y - beardHeight * 0.2,
+                    beardWidth,
+                    beardHeight
+                );
+            });
+        }, 100);
+    }
+
+    loadModels().then(startVideo);
+</script>
+</body>
+</html>

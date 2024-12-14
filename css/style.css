@@ -268,16 +268,13 @@ li {
 }
 
 .time-place p{
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .contacts p {
-    font-size: 16px;
+    font-size: 14px;
 }
 
-.footer .contacts {
-    margin-right: 7%;
-}
 
 .footer .time-place {
     margin-left: 7%;
